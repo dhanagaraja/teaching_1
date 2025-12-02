@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Delete City</h1>
+<p>Are you sure you want to delete: <strong>{{ city.name }}</strong>?</p>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Delete</button>
+    <a class="btn btn-secondary" href="{% url 'flipkart-city-list-web' %}">Cancel</a>
+</form>
+{% endblock %}

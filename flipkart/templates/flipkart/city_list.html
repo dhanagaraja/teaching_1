@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Cities</h1>
+<a class="btn btn-primary mb-3" href="{% url 'flipkart-city-create-web' %}">Create City</a>
+<table class="table table-striped">
+    <thead><tr><th>ID</th><th>Name</th><th>State</th><th>Actions</th></tr></thead>
+    <tbody>
+    {% for c in cities %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.city }}</td>
+            <td>{{ c.state }}</td>
+            <td>
+                <a class="btn btn-sm btn-secondary" href="{% url 'flipkart-city-edit-web' c.id %}">Edit</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'flipkart-city-delete-web' c.id %}">Delete</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="4">No cities yet</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
