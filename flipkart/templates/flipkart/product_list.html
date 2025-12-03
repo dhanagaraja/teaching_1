@@ -26,9 +26,10 @@
                         {% if p.image %}
                            <img src="{{ p.image.url }}" class="card-img-top mb-3" alt="{{ p.name }}">
                        {% endif %}
-                        <h5 class="card-title">{{ p.name }}</h5>
+                        <b><h5 class="card-title">{{ p.name }}</h5></b>
                         <h6 class="card-subtitle mb-2 text-muted">Price: {{ p.price }}</h6>
-                        <p class="card-text">{{ p.description }}</p>
+                        <p class="card-text" >{{ p.description }}</p>
+                        <p class="card-text"> Location: {{ p.location.name }} - {{ p.location.state}}</p>
                         <div class="mt-auto">
                             <a class="btn btn-sm btn-secondary me-2" href="{% url 'flipkart-product-edit-web' p.id %}">Edit</a>
                             <a class="btn btn-sm btn-danger" href="{% url 'flipkart-product-delete-web' p.id %}">Delete</a>
