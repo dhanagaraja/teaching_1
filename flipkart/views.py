@@ -88,11 +88,11 @@ def list_cities(request):
 # Template-based CRUD views
 def product_list_web(request):
 	qs = Product.objects.exclude(active=False)
-	search = request.GET.get('search')
+	q = request.GET.get('q')
 	min_price = request.GET.get('min_price')
 	max_price = request.GET.get('max_price')
-	if search:
-		qs = qs.filter(Q(name__icontains=search) | Q(description__icontains=search))
+	if q:
+		qs = qs.filter(Q(name__icontains=q) | Q(description__icontains=q))
 
 	try:
 		if min_price:
@@ -108,7 +108,7 @@ def product_list_web(request):
 
 	context = {
 		'products': qs,
-		'q': search or '',
+		'q': q or '',
 		'min_price': min_price or '',
 		'max_price': max_price or '',
 	}
@@ -117,12 +117,10 @@ def product_list_web(request):
 
 def product_create_web(request):
 	if request.method == 'POST':
-		data = request.POST
-		# name = data.get('name')
-		# price = data.get('price')
-		# description = data.get('description')
-		Product.objects.create(name=data.get('name'), price=data.get('price'), description=data.get('description'))
-		return redirect('flipkart-product-list-web')
+		form = ProductForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('flipkart-product-list-web')
 	else:
 		form = ProductForm()
 	return render(request, 'flipkart/product_form.html', {'form': form, 'action': 'Create'})
@@ -131,15 +129,10 @@ def product_create_web(request):
 def product_edit_web(request, pk):
 	product = Product.objects.get(id=pk)
 	if request.method == 'POST':
-		data = request.POST
-		print(request.POST)
-		# print(data = request.data)
-		product.name = data.get('name')
-		product.price = data.get('price')
-		product.description = data.get('description')
-		product.save()
-		# Product.objects.filter(id=pk).update(name=data.get('name'), price=data.get('price'), description=data.get('description'))
-		return redirect('flipkart-product-list-web')
+		form = ProductForm(request.POST, request.FILES, instance=product)
+		if form.is_valid():
+			form.save()
+			return redirect('flipkart-product-list-web')
 	else:
 		form = ProductForm(instance=product)
 	return render(request, 'flipkart/product_form.html', {'form': form, 'action': 'Edit'})

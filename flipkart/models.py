@@ -19,4 +19,11 @@ class City(models.Model):
     pin_code = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.city
+
+    @property
+    def name(self):
+        """Compatibility alias: return the city name for templates/code
+        that expect a `name` attribute.
+        """
+        return self.city

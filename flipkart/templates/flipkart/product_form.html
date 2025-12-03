@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>{{ action }} Product</h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {% if form.instance and form.instance.image %}
+        <div class="mb-3">
+            <label class="form-label">Current Image</label>
+            <div>
+                <img src="{{ form.instance.image.url }}" alt="{{ form.instance.name }}" style="max-width:200px; height:auto;" class="mb-2" />
+            </div>
+        </div>
+    {% endif %}
     {{ form.as_p }}
     <button class="btn btn-primary" type="submit">{{ action }}</button>
     <a class="btn btn-secondary" href="{% url 'flipkart-product-list-web' %}">Back</a>
