@@ -87,7 +87,7 @@ def list_cities(request):
 
 # Template-based CRUD views
 def product_list_web(request):
-	qs = Product.objects.exclude(active=False)
+	qs = Product.objects.all().exclude(active=False)
 	q = request.GET.get('q')
 	min_price = request.GET.get('min_price')
 	max_price = request.GET.get('max_price')

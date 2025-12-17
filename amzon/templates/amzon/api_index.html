@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="mb-4">Amzon API Dashboard</h1>
+            <div class="alert alert-info">
+                <strong>Welcome!</strong> This dashboard allows you to manage products and cities using REST APIs.
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Products Management</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Create, view, update, and delete products using the API.</p>
+                    <a href="{% url 'amzon_products' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-box"></i> Manage Products
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Cities Management</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Create, view, update, and delete cities using the API.</p>
+                    <a href="{% url 'amzon_cities' %}" class="btn btn-success btn-lg">
+                        <i class="fas fa-city"></i> Manage Cities
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3 class="mb-3">API Endpoints Documentation</h3>
+            <div class="accordion" id="apiDocs">
+                <!-- Products Endpoints -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#productEndpoints">
+                            Products API Endpoints
+                        </button>
+                    </h2>
+                    <div id="productEndpoints" class="accordion-collapse collapse" data-bs-parent="#apiDocs">
+                        <div class="accordion-body">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Method</th>
+                                        <th>Endpoint</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge bg-info">GET</span></td>
+                                        <td><code>/amzon/api/products/</code></td>
+                                        <td>List all products (with search & price filters)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-success">POST</span></td>
+                                        <td><code>/amzon/api/products/</code></td>
+                                        <td>Create a new product (JSON body)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-info">GET</span></td>
+                                        <td><code>/amzon/api/products/{id}/</code></td>
+                                        <td>Retrieve a specific product</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-warning">PATCH</span></td>
+                                        <td><code>/amzon/api/products/{id}/</code></td>
+                                        <td>Partial update product (JSON body)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-danger">DELETE</span></td>
+                                        <td><code>/amzon/api/products/{id}/</code></td>
+                                        <td>Delete a product</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h6 class="mt-3">Query Parameters for List:</h6>
+                            <ul>
+                                <li><code>q</code> - Search in name and description</li>
+                                <li><code>min_price</code> - Filter by minimum price</li>
+                                <li><code>max_price</code> - Filter by maximum price</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cities Endpoints -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cityEndpoints">
+                            Cities API Endpoints
+                        </button>
+                    </h2>
+                    <div id="cityEndpoints" class="accordion-collapse collapse" data-bs-parent="#apiDocs">
+                        <div class="accordion-body">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Method</th>
+                                        <th>Endpoint</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge bg-info">GET</span></td>
+                                        <td><code>/amzon/api/cities/</code></td>
+                                        <td>List all cities</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-success">POST</span></td>
+                                        <td><code>/amzon/api/cities/</code></td>
+                                        <td>Create a new city (JSON body)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-info">GET</span></td>
+                                        <td><code>/amzon/api/cities/{id}/</code></td>
+                                        <td>Retrieve a specific city</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-warning">PATCH</span></td>
+                                        <td><code>/amzon/api/cities/{id}/</code></td>
+                                        <td>Partial update city (JSON body)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-danger">DELETE</span></td>
+                                        <td><code>/amzon/api/cities/{id}/</code></td>
+                                        <td>Delete a city</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
